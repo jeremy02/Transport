@@ -1,0 +1,125 @@
+{% if search_error %}
+
+    <div class="alert alert-dismissable alert-danger" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Error!</h4>
+        <span>{{ search_error }} </span>
+    </div>
+{% endif %}
+
+<!--{% if search_success %}
+    <div class="alert alert-dismissable alert-info" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">{{ details.count }} devices found!</h4>
+        <span>{{ search_success }}</span>
+    </div>-->
+
+    {% if details.count > 0 %}
+    {% for device in details %}
+    <a class="list-group-item" href="javascript:void(0);" value="{{ device.id  }}"> {{ device.device_name }}</a>
+    {% endfor %}
+    {% endif %}
+
+<!--{% endif %}-->
+
+{% if search_warning %}
+    <div class="alert alert-dismissable alert-warning" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Warning!</h4>
+        <span>{{ search_warning }}</span>
+    </div>
+{% endif %}
+<!--Results for the search of a client-->
+{% if search_client_error %}
+    <div class="alert alert-dismissable alert-warning" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Warning!</h4>
+        <span>{{ search_client_error }}</span>
+    </div>
+{% endif %}
+<!--if a user was found -->
+{% if client_details.count > 0 %}
+    {% for client in client_details %}
+    <a class="list-group-item" href="javascript:void(0);" value="{{ client.id  }}"  client-name="{{ client.username }}"> {{client.first_name }}</a>
+    {% endfor %}
+{% endif %}
+
+<!-- THIS IS FOR LOADING THE LIST TO ASSIGN TO USERS TO LOGIN -->
+{% if device_list_warning %}
+    <div class="alert alert-dismissable alert-error" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Error!</h4>
+        <span>{{ device_list_warning }}</span>
+    </div>
+{% endif %}
+
+
+
+<!--if the device list was found -->
+{% if device_list.count > 0 %}
+    {% for device in device_list %}
+
+      <tr>
+        <td>{{ device.device_name }}</td>
+        <td>{{ device.device_serial_code }}</td>
+        <td>{{ device.assigned_vehicle.reg_no }}</td>
+        <td>{{ device.client.user.first_name }} &nbsp;{{ device.client.user.last_name }}</td>
+        <td>{{ device.client.id_no }}</td>
+        <td>
+            
+        </td>
+      </tr>
+
+    {% endfor %}
+{% endif %}
+
+{% if device_list_warning %}
+    <div class="alert alert-dismissable alert-warning" id="pos_messages">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Warning!</h4>
+        <span>{{ device_list_warning }}</span>
+    </div>
+{% endif %}
+
+<!--handle the list click function after the form search -->
+<script>
+    $('#search-device-results a').click(function(){
+
+        //enable the search client field to search for the client to be assigned
+        $('#search-client').attr('disabled',false).fadeIn(3000);
+
+        //refresh the div for search-device-results
+        //$('#search-device-results').fadeOut(6000);
+        //$('#search-device-results').html(''); // update the DIV
+
+        //then call the attr method to get back the links value
+        var deviceId = $(this).attr('value');
+        var deviceName = $(this).text();
+
+        //duplicate the values in the vehicle form
+        $("#device-name").val(deviceName);
+        $("#device-id").val(deviceId);
+        $("#client-span").text(deviceName);
+        $('#client-panel').fadeIn(1500);
+
+        //show the client panel elements but still hide some elements
+        //$('#client-form-div').fadeIn(1500);
+        $('#vehicle_form1').show('fast');
+
+    });
+
+    $('#search-client-results a').click(function(){
+
+        //then call the attr method to get back the links id value
+        var userId = $(this).attr('value');
+        //then call the attr method to get back the links client-name value
+        var userName = $(this).attr('client-name');
+
+        //duplicate the values in the vehicle form
+        $("#client-name").val(userName);
+        $("#client-id").val(userId);
+
+        //show the following elements after click
+        $('#vehicle_form2,#vehicle_form3,#vehicle_form4,#assign-device-to-client').show('slow');
+    });
+</script>

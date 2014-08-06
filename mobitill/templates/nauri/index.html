@@ -1,0 +1,850 @@
+{% extends 'nauri/base.html' %}
+{% load static %} <!-- New line -->
+{% block body_block %}
+
+<div class="row" xmlns="http://www.w3.org/1999/html">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!--End Page Header -->
+        </div>
+
+        <div class="row">
+
+          <!-- Navigation Buttons -->
+
+          <div class="col-lg-3">
+          <div class="well well-sm">
+            <ul class="nav nav-pills nav-stacked" id="myTabs">
+              <li class="active"><a href="#home" data-toggle="tab">Device Registration</a></li>
+              <li><a href="#profile" data-toggle="tab">Client Registration</a></li>
+              <li><a href="#device-assign" data-toggle="tab">Device Client Registration</a></li>
+              <li id="device-user-assignment"><a href="#device-user-assign" data-toggle="tab">Device Users Registration</a></li>
+            </ul>
+          </div>
+          </div>
+
+          <!-- Content -->
+          <div class="col-lg-9">
+          <div class="well">
+            <div class="tab-content">
+              <div class="tab-pane active" id="home">
+                  <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Device Registration
+                        </div>
+                        <div class="panel-body">
+                            <!--<div id="modalchangepw">-->
+
+                                <div id="modal_device">
+
+                                </div> <!--end modal login -->
+
+
+                                <form role = "form" id="device_registration">
+
+                                  {% csrf_token %}
+
+                                  <div class="form-group input-group">
+                                    <span class="input-group-addon">Device Name &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    {{ device_form.device_name}}
+                                  </div>
+
+                                  <div class="form-group input-group">
+                                    <span class="input-group-addon">Serial Code &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    {{ device_form.device_serial_code}}
+                                  </div>
+
+                                    <!-- Provide a button to click to submit the form. -->
+                                    <button type="button" class="btn btn-success pull-right" id="device_register_button">Register Device</button>
+                                    <button type="button" class="btn btn-info pull-left">Cancel</button>
+
+                                </form>
+                            <!--</div>-->
+                        </div>
+                        <div class="panel-footer">
+                            Brief Description of What to do in this form.
+                        </div>
+                  </div>
+              </div>
+              <div class="tab-pane" id="profile">
+                <!--Simple table example -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i>Simple Table Example
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>3326</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:29 PM</td>
+                                                    <td>$321.33</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3325</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:20 PM</td>
+                                                    <td>$234.34</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3324</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:03 PM</td>
+                                                    <td>$724.17</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3323</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:00 PM</td>
+                                                    <td>$23.71</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3322</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>2:49 PM</td>
+                                                    <td>$8345.23</td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.row -->
+                        </div><!-- /.panel-body -->
+
+                        <div class="panel-footer"> <!-- /.panel footer -->
+                            <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+                                Add New
+                            </button>
+                            <!--this is the start of the  window -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Client Registration</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="nav nav-pills" id="nav-tabs">
+                                                <li class="active"><a href="#personal" data-toggle="tab">Personal Details</a>
+                                                </li>
+                                                <li><a href="#account" data-toggle="tab">Account Details</a>
+                                                </li>
+                                                <li><a href="#contact" data-toggle="tab">Contact Details</a>
+                                                </li>
+                                                <li><a href="#bank" data-toggle="tab">Bank Details</a>
+                                                </li>
+                                            </ul>
+
+                                            <form role = "form"  id="client-form">
+                                            {% csrf_token %}
+
+                                                <div class="tab-content" id="tab-content">
+                                                    <!-- Personal -->
+                                                    <div class="tab-pane fade in active" id="personal">
+                                                          <div class="form-group">
+                                                            <label>First Name</label>
+                                                            {{ user_form.first_name}}
+                                                            <!--<p class="text-info">{{ user_form.firstname.help_text }}</p>-->
+                                                          </div>
+
+                                                          <div class="form-group">
+                                                            <label>Last Name</label>
+                                                            {{ user_form.last_name}}
+                                                            <!--<p class="text-info">{{ user_form.lastname.help_text }}</p>-->
+                                                          </div>
+
+                                                          <div class="form-group">
+                                                            <label>ID N0</label>
+                                                            {{ client_form.id_no}}
+                                                            <!--<p class="text-info">{{ client_form.id_no.help_text }}</p>-->
+                                                          </div>
+                                                        <!--<button class="btn btn-info pull-left btn-style">Prev</button>-->
+                                                        <a href="javascript:void(0);" class="btn btn-primary pull-right btn-style" id="submit-personal">Next</a>
+                                                    </div>
+
+                                                    <!-- Account -->
+                                                    <div class="tab-pane fade in" id="account">
+
+                                                          <div class="form-group">
+                                                            <label>Email Address</label>
+                                                            {{ user_form.email}}
+                                                            <!--<p class="text-info">{{ user_form.email.help_text }}</p>-->
+                                                          </div>
+
+                                                          <div class="form-group">
+                                                            <label>Username</label>
+                                                            {{ user_form.username}}
+                                                            <!--<p class="text-info">{{ user_form.username.help_text }}</p>-->
+                                                          </div>
+
+                                                          <div class="form-group">
+                                                            <label>Password</label>
+                                                            {{ user_form.password}}
+                                                            <!--<p class="text-info">{{ user_form.password.help_text }}</p>-->
+                                                          </div>
+
+
+                                                        <a href="javascript:void(0);" class="btn btn-info pull-left btn-style" id="bkto-personal">Prev</button>
+                                                        <a href="javascript:void(0);" class="btn btn-primary pull-right btn-style" id="submit-account">Next</a>
+                                                    </div>
+                                                    <!-- Account -->
+
+                                                    <!-- Contact -->
+                                                    <div class="tab-pane fade in" id="contact">
+
+                                                        <div class="form-group">
+                                                          <label>Phone Number</label>
+                                                          {{ client_form.phone}}
+                                                          <!--<p class="text-info">{{ client_form.phone.help_text }}</p>-->
+                                                        </div>
+
+                                                        <div class="row"><!--row-->
+                                                          <div class="col-lg-12">
+                                                              <div class="form-group col-lg-8">
+                                                                <label>Address</label>
+                                                                {{ client_form.address}}
+                                                                <!--<p class="text-info">{{ client_form.address.help_text }}</p>-->
+                                                              </div>
+
+                                                              <div class="form-group col-lg-4">
+                                                                <label>Zip Code</label>
+                                                                {{ client_form.zipcode}}
+                                                                <!--<p class="text-info">{{ client_form.zipcode.help_text }}</p>-->
+                                                              </div>
+                                                          </div>
+                                                        </div><!--row-->
+
+                                                        <div class="form-group">
+                                                            <label>City/Town of Residence</label>
+                                                            {{ client_form.city}}
+                                                            <!--<p class="text-info">{{ client_form.city.help_text }}</p>-->
+                                                        </div>
+
+                                                        <a href="javascript:void(0);" class="btn btn-info pull-left btn-style" id="bkto-account">Prev</a>
+                                                        <a href="javascript:void(0);" class="btn btn-primary pull-right btn-style" id="submit-contact">Next</a>
+                                                    </div>
+                                                    <!-- Contact -->
+
+                                                    <!-- Bank -->
+                                                    <div class="tab-pane fade in" id="bank">
+                                                        <div class="form-group">
+                                                              <label>Name of Bank</label>
+                                                              {{ client_form.bank_name}}
+                                                              <!--<p class="text-info">{{ client_form.bank_name.help_text }}</p>-->
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Bank Account Number</label>
+                                                                {{ client_form.account_no}}
+                                                                <!--<p class="text-info">{{ client_form.account_no.help_text }}</p>-->
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>KRA PIN</label>
+                                                                {{ client_form.kra_pin}}
+                                                                <!--<p class="text-info">{{ client_form.kra_pin.help_text }}</p>-->
+                                                            </div>
+                                                        <a href="javascript:void(0);" class="btn btn-info pull-left btn-style" id="bkto-contact">Prev</a>
+                                                        <a href="javascript:void(0);" class="btn btn-primary pull-right btn-style" id="submit-bank">Next</a>
+                                                    </div>
+                                                    <!-- Bank -->
+
+                                                </div>
+                                            </form>
+                                        </div><!--modal body -->
+                                        <!--modal footer -->
+                                        <div class="modal-footer">
+
+                                            <div class="progress progress-striped active">
+                                                <div id="progressBar" class="progress-bar-info" style="width:1%;"></div>
+                                            </div>
+
+                                            <div id="modal-client">
+
+                                            </div> <!--end modal login -->
+
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" id="save-client">Save changes</button>
+                                        </div>
+                                        <!--modal footer-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--this is the end of the modal window -->
+
+                        </div><!-- ./end panel footer -->
+
+                    </div>
+                    <!--End simple table example -->
+              </div><!--end the div for profile-->
+
+              <!--This shows the list of unsassigned devices
+               start of the tab pane for devices-->
+              <div class="tab-pane" id="device-assign">
+
+                  <div class="row">
+                      <!-- Tab Header -->
+                      <div class="col-lg-12">
+                          <h1 class="page-header">Device to Client Assignment</h1>
+                          <p>A Description of what to do during device assignment to a client.</p>
+                      </div>
+                      <!--End Tab Header -->
+                  </div>
+
+                  <div class="row">
+                        <!-- Welcome -->
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <form role="form" id="search-client-form">
+                                    <div class="form-group input-group">
+                                        {% csrf_token %}
+                                        <input type="text" class="form-control" id="search-client" name="search-client" placeholder="Enter the name of the Client" autocomplete="off">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--start of search-->
+                            <div class="col-lg-6">
+                                <form role="form" id="search-device-form">
+                                    <div class="form-group input-group">
+                                        {% csrf_token %}
+                                        <input type="text" class="form-control" id="search-device" name="search-device"  placeholder="Enter the Device Serial/Name to search" autocomplete="off">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--End of search-->
+                        </div>
+                        <!--end  Welcome -->
+                  </div>
+
+
+                  <div class="row"><!--start the first row -->
+
+
+                      <!--Start Device Assignment section -->
+                       <div class="col-lg-6">
+
+                          <div class="panel panel-success" id="client-panel">
+                                <div class="panel-heading">
+                                    Client to be Assigned <span class="text-info pull-right" id="client-span"></span>
+                                </div>
+                                <div class="panel-body">
+                                    <!--<div class="form-group">
+                                        <label>Device to be assigned</label>
+                                        <input class="form-control" id="device-id">
+                                    </div>-->
+                                    <div class="bs-example">
+                                      <div class="list-group" id="search-client-results">
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    The client to be attached to the device.
+                                </div>
+                          </div>
+
+
+                       </div>
+                        <!--End Device Assignment section -->
+
+                        <!--quick search results section -->
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+
+                                  <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-clock-o"></i>Search Results for Devices</h3>
+                                  </div>
+
+                                  <div class="panel-body">
+                                    <div class="bs-example">
+                                      <div class="list-group" id="search-device-results">
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="text-right">
+                                  </div>
+                                  <div class="panel-footer">
+                                      The list of devices will be displayed here.
+                                  </div>
+
+                            </div><!--end panel primary-->
+                       </div>
+                        <!--end  quick search results section -->
+
+                  </div> <!--end the first row -->
+
+                  <div class="row"><!--start the second row -->
+                      <!-- Tab Header -->
+                      <div class="col-lg-12">
+                          <h4>Device to Client Assignment Form</h4>
+                          <p class="text-info">Fill in the details of the vehicle and sacco in the form below</p>
+                          <div id="clientform-post-results">
+                          </div>
+                          <div class="col-lg-6">
+                              <div class="form-group input-group" id="vehicle_form1">
+                                  <span class="input-group-addon">Device Name</span>
+                                  <input type="text" class="form-control" id="device-name" disabled>
+                              </div>
+                              <div class="form-group input-group" id="vehicle_form2">
+                                  <span class="input-group-addon">Client Name &nbsp;</span>
+                                  <input type="text" class="form-control" id="client-name" disabled>
+                              </div>
+                          </div>
+                          <div class="col-lg-6">
+                              <form role="form" id="vehicle_form">
+                                  {% csrf_token %}
+                                  <input id="device-id" type="hidden" name="device-id"/>
+                                  <input id="client-id" type="hidden" name="client-id"/>
+                                  <div class="form-group input-group" id="vehicle_form3">
+                                      <span class="input-group-addon">Registration No</span>
+                                      {{ vehicle_form.reg_no }}
+                                  </div>
+                                  <div class="form-group input-group" id="vehicle_form4">
+                                      <span class="input-group-addon">Sacco Name&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                      {{ vehicle_form.sacco_name }}
+                                  </div>
+                                  <button type="button" class="btn btn-success pull-right" id="assign-device-to-client">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <!--End Tab Header -->
+                  </div><!--End the second row-->
+
+              </div> <!--End of the tab pane for devices-->
+
+              <!--This shows the list of assgined devices
+               start of the tab pane for devices to users who can log in-->
+              <div class="tab-pane" id="device-user-assign">
+
+                  <div class="row">
+                      <!-- Tab Header -->
+                      <div class="col-lg-12">
+                          <h1 class="page-header">Device to Users Assignment</h1>
+                          <p>A Description of what to do during device assignment to users who will be logging in to the device.</p>
+                      </div>
+                      <!--End Tab Header -->
+                  </div>
+
+                  <div class="row">
+                      <!-- Tab Header -->
+                      <div class="col-lg-12">
+                          <h3 class="page-header">Available Devices</h3>
+                          <!--Simple table example -->
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i>Devices to be Assigned to Users
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Actions
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li><a href="#">Action</a>
+                                                </li>
+                                                <li><a href="#">Another action</a>
+                                                </li>
+                                                <li><a href="#">Something else here</a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Separated link</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover table-striped" id="device-user-assignment-list">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Device Name</th>
+                                                            <th>Device Serial Code</th>
+                                                            <th>Car Assigned</th>
+                                                            <th>Client Name</th>
+                                                            <th>Client ID No</th>
+                                                            <th>Action <i class="fa fa-sort"></i></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!--End simple table example -->
+                      </div>
+                      <!--End Tab Header -->
+                  </div>
+
+              </div> <!--End of the tab pane for devices to assign users who can log in-->
+
+            </div>
+          </div>
+          </div>
+
+        </div><!-- end of row -->
+
+<!-- Enable the tabs -->
+<script type="text/javascript">
+  $('#myTabs a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+//on disable the search client field until a device has been searched
+$('#search-client').attr('disabled',true);
+
+//hide the client panel
+$('#client-panel').hide();
+
+//hide the client form elements for device assignment
+$('#vehicle_form1,#vehicle_form2,#vehicle_form3,#vehicle_form4,#assign-device-to-client').hide()
+
+//on default load the list for devices to be assigned to users
+$.ajax({ // create an AJAX call...
+  data: $('#vehicle_form').serialize(), // get the form data
+  type: 'GET', // GET or POST
+  url: '/nauri/load_device_list/', // the file to call
+  success: function(response) { // on success..
+    $('#device-user-assignment-list tbody').html(response); // update the DIV
+  },
+  error: function(response){
+    $('#device-user-assignment-list tbody').html(response); // update the DIV
+  }
+});
+//return false;
+
+//Script to handle device search while assigning devices
+$('#search-device').keyup(function() {
+
+  $.ajax({ // create an AJAX call...
+      data: $('#search-device-form').serialize(), // get the form data
+      dataType:'json',
+      type: 'GET', // GET or POST
+      url: '/nauri/search_device/', // the file to call
+      success: function(response) { // on success..
+        $('#search-device-results').html(response); // update the DIV
+      },
+      error: function(response){
+        $('#search-device-results').html(response); // update the DIV
+      }
+  });
+  return false;
+});
+
+//Script to handle client search while assigning devices
+$('#search-client').keyup(function() {
+
+  $.ajax({ // create an AJAX call...
+      data: $('#search-client-form').serialize(), // get the form data
+      type: 'GET', // GET or POST
+      url: '/nauri/search_client/', // the file to call
+      success: function(response) { // on success..
+        $('#search-client-results').html(response); // update the DIV
+      },
+      error: function(response){
+        $('#search-client-results').html(response); // update the DIV
+      }
+  });
+  return false;
+});
+
+$('#assign-device-to-client').click(function() {
+  $.ajax({ // create an AJAX call...
+      data: $('#vehicle_form').serialize(), // get the form data
+      type: 'POST', // GET or POST
+      url: '/nauri/client_device_assign/', // the file to call
+      success: function(response) { // on success..
+        $('#clientform-post-results').html(response); // update the DIV
+        //setTimeout("ReloadPage()", 10000);
+      },
+      error: function(response){
+        $('#clientform-post-results').html(response); // update the DIV
+      }
+  });
+  return false;
+});
+
+/*function ReloadPage() {
+   location.reload();
+};*/
+
+</script>
+
+<script>
+    //match word
+    var wordRegex=/^[a-zA-Z]{3,16}$/i;
+    //match email address
+    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/i;
+    //match the idnumber
+    var idnoRegex = /^[0-9]{8}$/;
+    //match an integer/number
+    var intRegex = /^[0-9]{2,8}$/;
+    //match the zipcode
+    var zipRegex = /^[0-9]{5}$/;
+    //match the zipcode
+    var addressRegex = /^[0-9]{2,5}$/;
+    //match the phonenumber
+    var phoneRegex = /\(?([0-9]{4})\)?([ .-]?)([0-9]{3})\2([0-9]{3})/;
+    //match the username
+    var usernameRegex = /^[a-zA-Z0-9._-]{6,16}$/i;
+    //match the password
+    var passRegex = /^[A-Za-z0-9!@#$%^&*()_]{6,16}$/i;
+
+    //disable the add client button in the footer
+    $('#save-client').hide();
+
+    //these are the variables
+    var firstname = $("#firstname").val();
+    var lastname = $("#lastname").val();
+    var idno = $("#id_no").val();
+    var phone = $("#phone").val();
+    var address = $("#address").val();
+    var zipcode = $("#zipcode").val();
+    var city = $("#city").val();
+    var email = $("#email").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var bankname = $("#bank_name").val();
+    var accountno = $("#account_no").val();
+    var krapin = $("#kra_pin").val();
+
+
+    //dealing with tabs and the client registration
+    var percentage = 0;
+
+    $(".btn-style").click(function () {
+        var target = $("#nav-tabs li.active");
+        var sibbling;
+        if($(this).attr("id") == "submit-personal") {
+            //sibbling = target.next();
+            //disable the add client button in the footer
+            $('#save-client').hide();
+            //update the progress bar
+
+            if($('#firstname').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the firstname.</div>');
+            }else if(!wordRegex.test($('#firstname').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The firstname must be a word/characters only.</div>' );
+            }else if($('#lastname').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the lastname.</div>' );
+            }else if(!wordRegex.test($('#lastname').val())) {
+                //alert('firstname')
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The lastname must be a word/characters only.</div>' );
+            }else if($('#id_no').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the id number.</div>' );
+            }else if(!idnoRegex.test($('#id_no').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">IDNo must be integers(8 digits).</div>' );
+            }else {
+                sibbling = target.next();
+
+                percentage = 25;
+                setInterval(function () {
+                    $('#progressBar').css('width', percentage + '%');
+                    $('#progressBar').html(percentage + '%');
+                }, 1500);
+                $('.alert-warning').remove();
+            }
+
+        }else if ($(this).attr("id") == "submit-account") {
+            //sibbling = target.next();
+            //disable the add client button in the footer
+            $('#save-client').hide();
+
+            if($('#email').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the email address.</div>' );
+            }else if(!emailRegex.test($('#email').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter a valid email address.</div>' );
+            }else if($('#username').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the username.</div>');
+            }else if(!usernameRegex.test($('#username').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The username must 6-15 characters.</div>' );
+            }else if($('#password').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the password.</div>' );
+            }else if(!passRegex.test($('#password').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The password must be 6-16 characters.</div>' );
+            }else {
+                sibbling = target.next();
+                percentage += 25;
+                setInterval(function () {
+                    $('#progressBar').css('width', percentage + '%');
+                    $('#progressBar').html(percentage + '%');
+                }, 1500);
+                $('.alert-warning').remove();
+            }
+        }else if ($(this).attr("id") == "submit-contact") {
+            //disable the add client button in the footer
+            $('#save-client').hide();
+
+            if($('#phone').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the phone number.</div>' );
+            }else if(!phoneRegex.test($('#phone').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The phone number format is e.g(0700 000 000).</div>' );
+            }else if($('#address').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the address.</div>' );
+            }else if(!addressRegex.test($('#address').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter a valid address(2-5 digits).</div>' );
+            }else if($('#zipcode').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the zipcode.</div>' );
+            }else if(!zipRegex.test($('#zipcode').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter a valid zipcode(5 digits).</div>' );
+            }else if($('#city').val() == ""){
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the city name.</div>');
+            }else if(!wordRegex.test($('#city').val())) {
+                $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The city must word/characters only.</div>' );
+            }else {
+                sibbling = target.next();
+                percentage += 25;
+                setInterval(function () {
+                    $('#progressBar').css('width', percentage + '%');
+                    $('#progressBar').html(percentage + '%');
+                }, 1500);
+                $('.alert-warning').remove();
+                //$('#save-client').show();
+            }
+        }else if ($(this).attr("id") == "submit-bank"){
+
+                if($('#bank_name').val() == ""){
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the bank name.</div>' );
+                }else if(!wordRegex.test($('#bank_name').val())) {
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The bank name must be a word.</div>' );
+                }else if($('#account_no').val() == ""){
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the bank account no.</div>' );
+                }else if(!intRegex.test($('#account_no').val())) {
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The bank account number must be a number.</div>' );
+                }else if($('#kra_pin').val() == ""){
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">Please enter the KRA pin.</div>' );
+                }else if(!intRegex.test($('#kra_pin').val())) {
+                    $( ".progress" ).after( '<div class="alert alert-warning alert-dismissable pull-left">The kra pin must be a number.</div>' );
+                }else {
+                    $('#save-client').show();
+                    /*percentage += 25;
+                    setInterval(function () {
+                        $('#progressBar').css('width', percentage + '%');
+                        $('#progressBar').html(percentage + '%');
+                    }, 1500);
+                    $('.alert-warning').remove();
+                    //$('#save-client').show();*/
+                }
+
+        }else if ($(this).attr("id") == "bkto-personal") {
+            sibbling = target.prev();
+            //disable the add client button in the footer
+            $('#save-client').hide();
+            //update the progress bar
+            percentage = 0;
+            $('#progressBar').css('width', percentage+'%');
+            $('#progressBar').html(percentage+'%');
+        }else if ($(this).attr("id") == "bkto-account") {
+            sibbling = target.prev();
+            //disable the add client button in the footer
+            $('#save-client').hide();
+            //update the progress bar
+            percentage = 25;
+            $('#progressBar').css('width', percentage+'%');
+            $('#progressBar').html(percentage+'%');
+        }else if ($(this).attr("id") == "bkto-contact") {
+            sibbling = target.prev();
+            //disable the add client button in the footer
+            $('#save-client').hide();
+            //update the progress bar
+            percentage = 50;
+            $('#progressBar').css('width', percentage+'%');
+            $('#progressBar').html(percentage+'%');
+        }else {
+            sibbling = target.prev();
+            //$('#save-client').show();
+        }
+
+        if (sibbling.is("li")) {
+            sibbling.children("a").tab("show");
+            //target.removeClass("active")
+            //sibbling.addClass("active").children("a").tab("show");
+        }
+
+        //the jquery ajax code for form submission
+
+    $('#save-client').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/nauri/client_register/",
+            data:$('#client-form').serialize(), // get the form data
+            success: function (response)
+                {
+                    $('#modal-client').html(response);
+                    //$('#login_username').val('');
+                    //$('#login_password').val('');
+                },
+            error:function(data) {
+                    $('#modal-client').html(data);
+                }
+            //dataType: 'html'
+        });
+        return false;
+
+    });//save client function end
+
+    });
+</script>
+
+{% endblock %}
+
+
